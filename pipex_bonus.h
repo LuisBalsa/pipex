@@ -1,0 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/21 10:43:44 by luide-so          #+#    #+#             */
+/*   Updated: 2023/06/21 23:18:14 by luide-so         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
+
+# include "Libft/libft.h"
+# include <sys/wait.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <errno.h>
+
+void	ft_here_doc(int fd, char *eof);
+
+#endif
