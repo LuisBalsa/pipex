@@ -6,7 +6,7 @@
 /*   By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:43:44 by luide-so          #+#    #+#             */
-/*   Updated: 2023/06/21 23:18:14 by luide-so         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:20:26 by luide-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@
 # include <errno.h>
 
 void	ft_here_doc(int fd, char *eof);
+void	check(int result, char *msg);
 
 #endif

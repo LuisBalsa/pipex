@@ -6,7 +6,7 @@
 /*   By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:35:56 by luide-so          #+#    #+#             */
-/*   Updated: 2023/06/22 04:02:19 by luide-so         ###   ########.fr       */
+/*   Updated: 2023/06/22 12:36:27 by luide-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	redirect(int *fd, char *cmd, char **envp, int here_doc)
 	check(pid, "fork");
 	if (pid)
 	{
-		close(fd[1]);
 		dup2(fd[0], STDIN_FILENO);
+		close(fd[1]);
 		waitpid(pid, NULL, 0);
 		if (here_doc)
 		{
@@ -89,6 +89,8 @@ void	redirect(int *fd, char *cmd, char **envp, int here_doc)
 	}
 	else
 	{
+		if (here_doc)
+			ft_here_doc(fd[1], cmd);
 		dup2(fd[1], STDOUT_FILENO);
 		exec_cmd(cmd, envp);
 		close(fd[0]);
@@ -110,13 +112,13 @@ int	main(int argc, char **argv, char **envp)
 		fd_file[1] = open(argv[argc - 1], O_RDWR | O_TRUNC * !here_doc
 				| O_APPEND * here_doc | O_CREAT, 0644);
 		check(fd_file[1], argv[argc - 1]);
-		if (here_doc)
-			ft_here_doc(fd_file[0], argv[2]);
+		//if (here_doc)
+		//	ft_here_doc(fd_file[0], argv[2]);
 		dup2(fd_file[0], STDIN_FILENO);
-		dup2(fd_file[1], STDOUT_FILENO);
 		i = 2 + here_doc;
 		while (i < argc - 2)
 			redirect(fd_file, argv[i++], envp, here_doc);
+		dup2(fd_file[1], STDOUT_FILENO);
 		exec_cmd(argv[argc - 2], envp);
 	}
 	else

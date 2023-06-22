@@ -6,7 +6,7 @@
 #    By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/19 15:35:28 by luide-so          #+#    #+#              #
-#    Updated: 2023/06/22 02:03:14 by luide-so         ###   ########.fr        #
+#    Updated: 2023/06/22 04:17:36 by luide-so         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,6 @@ clean:
 	@echo "\nObjects deleted - libft"
 
 fclean: clean
-	@${RM} ${NAME}
 	@echo "\n${NAME} deleted"
 
 re: fclean all

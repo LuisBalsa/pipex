@@ -6,7 +6,7 @@
 /*   By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 23:09:53 by luide-so          #+#    #+#             */
-/*   Updated: 2023/06/21 23:10:29 by luide-so         ###   ########.fr       */
+/*   Updated: 2023/06/22 12:32:16 by luide-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void	ft_here_doc(int fd, char *eof)
 		line = get_next_line(0);
 	}
 	free(line);
-	close(fd);
+	//close(fd);
 }
