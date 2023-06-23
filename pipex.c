@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_bonus.c                                      :+:      :+:    :+:   */
+/*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:35:56 by luide-so          #+#    #+#             */
-/*   Updated: 2023/06/23 13:29:07 by luide-so         ###   ########.fr       */
+/*   Updated: 2023/06/23 12:29:25 by luide-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "pipex.h"
 
 void	check(int result, char *msg)
 {
@@ -50,7 +50,7 @@ char	*get_path(char *cmd, char **envp)
 	return (ft_strdup(cmd));
 }
 
-void	exec_cmd(char *cmd, char **envp, int here_doc)
+void	exec_cmd(char *cmd, char **envp)
 {
 	char	**args;
 	char	*path;
@@ -65,12 +65,10 @@ void	exec_cmd(char *cmd, char **envp, int here_doc)
 	perror(path);
 	ft_free_array(args);
 	free(path);
-	if (here_doc)
-		check(unlink("here_doc"), "here_doc");
 	exit(EXIT_FAILURE);
 }
 
-void	redirect(int *fd, char *cmd, char **envp, int *here_doc)
+void	redirect(int *fd, char *cmd, char **envp)
 {
 	pid_t	pid;
 
@@ -82,44 +80,31 @@ void	redirect(int *fd, char *cmd, char **envp, int *here_doc)
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[1]);
 		waitpid(pid, NULL, 0);
-		if (*here_doc)
-		{
-			check(unlink("here_doc"), "here_doc");
-			*here_doc = 0;
-		}
 	}
 	else
 	{
 		dup2(fd[1], STDOUT_FILENO);
-		exec_cmd(cmd, envp, *here_doc);
+		exec_cmd(cmd, envp);
 		close(fd[0]);
 	}
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	int	i;
-	int	here_doc;
 	int	fd_file[2];
 
-	if (argc >= 6 || (argc == 5 && ft_strncmp(argv[1], "here_doc", 8)))
+	if (argc == 5)
 	{
-		here_doc = (argc >= 6 && !ft_strncmp(argv[1], "here_doc", 8));
-		if (here_doc)
-			ft_here_doc(argv[2]);
 		fd_file[0] = open(argv[1], O_RDONLY, 0644);
 		check(fd_file[0], argv[1]);
-		fd_file[1] = open(argv[argc - 1], O_RDWR | O_TRUNC * !here_doc
-				| O_APPEND * here_doc | O_CREAT, 0644);
+		fd_file[1] = open(argv[argc - 1], O_RDWR | O_TRUNC | O_CREAT, 0644);
 		check(fd_file[1], argv[argc - 1]);
 		dup2(fd_file[0], STDIN_FILENO);
 		dup2(fd_file[1], STDOUT_FILENO);
-		i = 2 + here_doc;
-		while (i < argc - 2)
-			redirect(fd_file, argv[i++], envp, &here_doc);
-		exec_cmd(argv[argc - 2], envp, here_doc);
+		redirect(fd_file, argv[2], envp);
+		exec_cmd(argv[3], envp);
 	}
 	else
-		ft_printf("Usage:./pipex file1/(here_doc LIMITER) cmd1 .. cmdx file2\n");
+		ft_printf("Usage:./pipex file1 cmd1 cmd2 file2\n");
 	return (0);
 }
