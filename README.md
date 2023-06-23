@@ -2,7 +2,7 @@
 
 Pipex is a command-line utility designed to replicate the functionality of the `|` operator in shell commands. It allows the user to execute a series of commands, with the output of each command piped as input to the next command in the sequence.
 
-Please note that this version of Pipex is an unfinished work and not provide the complete functionality (here_doc)
+Please note that this version of Pipex is an unfinished work (it's done olny the bonus part)
 
 
 ## Usage
