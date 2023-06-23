@@ -6,7 +6,7 @@
 /*   By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:35:56 by luide-so          #+#    #+#             */
-/*   Updated: 2023/06/22 12:36:27 by luide-so         ###   ########.fr       */
+/*   Updated: 2023/06/23 08:33:15 by luide-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ void	redirect(int *fd, char *cmd, char **envp, int here_doc)
 	}
 	else
 	{
-		if (here_doc)
-			ft_here_doc(fd[1], cmd);
 		dup2(fd[1], STDOUT_FILENO);
 		exec_cmd(cmd, envp);
 		close(fd[0]);
@@ -106,19 +104,18 @@ int	main(int argc, char **argv, char **envp)
 	if (argc >= 5)
 	{
 		here_doc = (argc == 6 && !ft_strncmp(argv[1], "here_doc", 8));
-		fd_file[0] = open(argv[1], O_RDWR
-				| O_TRUNC * here_doc | O_CREAT * here_doc, 0644);
+		if (here_doc)
+			ft_here_doc(argv[2]);
+		fd_file[0] = open(argv[1], O_RDONLY, 0644);
 		check(fd_file[0], argv[1]);
 		fd_file[1] = open(argv[argc - 1], O_RDWR | O_TRUNC * !here_doc
 				| O_APPEND * here_doc | O_CREAT, 0644);
 		check(fd_file[1], argv[argc - 1]);
-		//if (here_doc)
-		//	ft_here_doc(fd_file[0], argv[2]);
 		dup2(fd_file[0], STDIN_FILENO);
+		dup2(fd_file[1], STDOUT_FILENO);
 		i = 2 + here_doc;
 		while (i < argc - 2)
 			redirect(fd_file, argv[i++], envp, here_doc);
-		dup2(fd_file[1], STDOUT_FILENO);
 		exec_cmd(argv[argc - 2], envp);
 	}
 	else
