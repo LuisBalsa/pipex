@@ -1,5 +1,5 @@
 
-**Pipex**
+# Pipex
 
 Pipex is a project from the 42 coding school that involves handling pipes and executing shell commands. The objective is to create a program that replicates the behavior of the following shell command:
 
@@ -54,7 +54,26 @@ $> ./pipex here_doc LIMITER cmd cmd1 file
 ```
 Should behave like: `cmd << LIMITER | cmd1 >> file`
 
-**Flowchart:**
+The bonus part of the pipex project adds two additional features to the original functionality. Here's a detailed explanation of the bonus part:
+
+1. Handling Multiple Pipes:
+   - In the original project, pipex only supported a single pipe between `cmd1` and `cmd2`. However, in the bonus part, the program is enhanced to handle multiple pipes between commands.
+   - Instead of just two commands (`cmd1` and `cmd2`), the program can now take multiple commands (`cmd1`, `cmd2`, ..., `cmdn`).
+   - The input and output redirection is done sequentially between each pair of commands using pipes. For example, `< file1 cmd1 | cmd2 | cmd3 ... | cmdn > file2`.
+   - Each command's output is redirected to the next command's input using pipes, and the final output is redirected to `file2`.
+   - This allows for a more flexible and complex command chaining, similar to how pipes work in the shell.
+
+2. Supporting "here_doc" with "<<" and ">>":
+   - The bonus part also adds support for the "here_doc" input mode, which is commonly used in shell scripting.
+   - Instead of specifying a file name as the input (`file1`), the program can now take the parameter `"here_doc"` followed by a delimiter (`LIMITER`).
+   - In this mode, the user can input multiple lines of text until the delimiter is encountered.
+   - The input from the user is then passed as the input to the first command (`cmd1`) using a pipe.
+   - Additionally, the output of the last command (`cmdn`) can be appended (`>>`) to a file (`file2`), instead of overwriting it with a truncation (`>`).
+   - This feature provides more flexibility when working with user input and file redirection in a piped command sequence.
+
+These bonus features add more versatility and functionality to the original pipex project, allowing for more complex command chains and dynamic user input handling.
+
+# Flowchart:
 
 Flowcharts for the mandatory and bonus parts of the `pipex` program:
 
