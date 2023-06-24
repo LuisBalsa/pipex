@@ -6,7 +6,7 @@
 /*   By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:35:56 by luide-so          #+#    #+#             */
-/*   Updated: 2023/06/23 12:29:25 by luide-so         ###   ########.fr       */
+/*   Updated: 2023/06/24 19:28:25 by luide-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,18 @@ void	exec_cmd(char *cmd, char **envp)
 	else
 		path = get_path(args[0], envp);
 	execve(path, args, envp);
-	ft_putstr_fd("pipex: ", STDERR_FILENO);
+	dup2(STDERR_FILENO, STDOUT_FILENO);
+	ft_printf("pipex: %s: command not found\n", args[0]);
 	perror(path);
 	ft_free_array(args);
 	free(path);
-	exit(EXIT_FAILURE);
+	exit(127);
 }
 
-void	redirect(int *fd, char *cmd, char **envp)
+void	redirect(char *file, char *cmd, char **envp)
 {
 	pid_t	pid;
+	int		fd[2];
 
 	check(pipe(fd), "pipe");
 	pid = fork();
@@ -79,10 +81,11 @@ void	redirect(int *fd, char *cmd, char **envp)
 	{
 		dup2(fd[0], STDIN_FILENO);
 		close(fd[1]);
-		waitpid(pid, NULL, 0);
+		waitpid(pid, NULL, WNOHANG);
 	}
 	else
 	{
+		check(access(file, F_OK), file);
 		dup2(fd[1], STDOUT_FILENO);
 		exec_cmd(cmd, envp);
 		close(fd[0]);
@@ -96,15 +99,14 @@ int	main(int argc, char **argv, char **envp)
 	if (argc == 5)
 	{
 		fd_file[0] = open(argv[1], O_RDONLY, 0644);
-		check(fd_file[0], argv[1]);
+		dup2(fd_file[0], STDIN_FILENO);
+		redirect(argv[1], argv[2], envp);
 		fd_file[1] = open(argv[argc - 1], O_RDWR | O_TRUNC | O_CREAT, 0644);
 		check(fd_file[1], argv[argc - 1]);
-		dup2(fd_file[0], STDIN_FILENO);
 		dup2(fd_file[1], STDOUT_FILENO);
-		redirect(fd_file, argv[2], envp);
 		exec_cmd(argv[3], envp);
 	}
 	else
 		ft_printf("Usage:./pipex file1 cmd1 cmd2 file2\n");
-	return (0);
+	return (1);
 }
