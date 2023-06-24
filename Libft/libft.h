@@ -6,7 +6,7 @@
 /*   By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:38:49 by luide-so          #+#    #+#             */
-/*   Updated: 2023/06/19 21:22:31 by luide-so         ###   ########.fr       */
+/*   Updated: 2023/06/24 23:03:02 by luide-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,59 @@ int		print_pointer(unsigned long long addr, int *flags);
 # endif
 
 char	*get_next_line(int fd);
+
+// Colors
+
+# ifndef RESET
+#  define RESET "\033[0m"
+# endif
+# ifndef BLACK
+#  define BLACK "\033[0;30m"
+# endif
+# ifndef RED
+#  define RED "\033[0;31m"
+# endif
+# ifndef GREEN
+#  define GREEN "\033[0;32m"
+# endif
+# ifndef YELLOW
+#  define YELLOW "\033[0;33m"
+# endif
+# ifndef BLUE
+#  define BLUE "\033[0;34m"
+# endif
+# ifndef MAGENTA
+#  define MAGENTA "\033[0;35m"
+# endif
+# ifndef CYAN
+#  define CYAN "\033[0;36m"
+# endif
+# ifndef WHITE
+#  define WHITE "\033[0;37m"
+# endif
+# ifndef BOLDBLACK
+#  define BOLDBLACK "\033[1;30m"
+# endif
+# ifndef BOLDRED
+#  define BOLDRED "\033[1;31m"
+# endif
+# ifndef BOLDGREEN
+#  define BOLDGREEN "\033[1;32m"
+# endif
+# ifndef BOLDYELLOW
+#  define BOLDYELLOW "\033[1;33m"
+# endif
+# ifndef BOLDBLUE
+#  define BOLDBLUE "\033[1;34m"
+# endif
+# ifndef BOLDMAGENTA
+#  define BOLDMAGENTA "\033[1;35m"
+# endif
+# ifndef BOLDCYAN
+#  define BOLDCYAN "\033[1;36m"
+# endif
+# ifndef BOLDWHITE
+#  define BOLDWHITE "\033[1;37m"
+# endif
 
 #endif
