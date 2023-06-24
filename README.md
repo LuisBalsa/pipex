@@ -88,8 +88,8 @@ M -- Failure --> D
 N -- Success --> O{Write to file2}
 N -- Failure --> D
 O -- Success --> P(Display Success)
-P -- End
-D(Display Error) -- End
+P --> End
+D(Display Error) --> End
 ```
 
 **Bonus Part:**
@@ -126,8 +126,8 @@ O -- Failure --> E
 P -- Success --> Q{Write to file2}
 P -- Failure --> E
 Q -- Success --> R(Display Success)
-R -- End
-E(Display Error) -- End
+R --> End
+E(Display Error) --> End
 ```
 
 These flowcharts provide a visual representation of the control flow and decision-making process in the `pipex` program, highlighting the steps involved in handling the mandatory and bonus functionalities.
