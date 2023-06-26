@@ -6,7 +6,7 @@
 /*   By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 13:25:34 by luide-so          #+#    #+#             */
-/*   Updated: 2023/06/19 18:31:12 by luide-so         ###   ########.fr       */
+/*   Updated: 2023/06/25 13:04:15 by luide-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	flags_nbr(const char *param, int *flags)
 	return (i);
 }
 
-static int	*check_flags(const char *param, int *flags, int *k)
+static int	*check_flags(const char *param, va_list ap, int *flags, int *k)
 {
 	int		j;
 	char	*cflags;
@@ -46,6 +46,8 @@ static int	*check_flags(const char *param, int *flags, int *k)
 		}
 		if (param[*k] >= '1' && param[*k] <= '9')
 			*k += flags_nbr(&param[*k], flags);
+		if (param[*k] == '*')
+			flags[7] = va_arg(ap, int);
 		(*k)++;
 	}
 	return (flags);
@@ -87,7 +89,7 @@ int	ft_printf(const char *param, ...)
 		if (param[k] == '%' && param[k + 1])
 		{
 			k++;
-			check_flags(param, flags, &k);
+			check_flags(param, ap, flags, &k);
 			count += check_conversion(param[k], ap, flags);
 		}
 		else

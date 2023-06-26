@@ -6,7 +6,7 @@
 #    By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/21 14:46:46 by luide-so          #+#    #+#              #
-#    Updated: 2023/06/24 20:39:27 by luide-so         ###   ########.fr        #
+#    Updated: 2023/06/26 21:48:55 by luide-so         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,14 +24,16 @@ CC = cc
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
-all: ${RULE}
+all: ${NAME}
 
-${RULE}: ${OBJS} ${HEADER}
-	@touch ${RULE}
-	@${RM} ${RULE_BONUS}
+${NAME}: ${RULE} ${OBJS} ${HEADER}
 	@make -s -C Libft
 	@${CC} ${CFLAGS} ${INCLUDE} -o ${NAME} ${OBJS} -L Libft_obj -lft
 	@echo "\n${NAME} created"
+
+${RULE}:
+	@touch ${RULE}
+	@${RM} ${RULE_BONUS}
 
 bonus: ${RULE_BONUS}
 
