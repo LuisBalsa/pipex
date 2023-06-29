@@ -6,7 +6,7 @@
 /*   By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:35:56 by luide-so          #+#    #+#             */
-/*   Updated: 2023/06/24 20:32:27 by luide-so         ###   ########.fr       */
+/*   Updated: 2023/06/29 18:45:02 by luide-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	redirect(char *file, char *cmd, char **envp)
 	}
 	else
 	{
-		check(access(file, F_OK), file);
+		check(access(file, R_OK), file);
 		dup2(fd[1], STDOUT_FILENO);
 		exec_cmd(cmd, envp);
 		close(fd[0]);
@@ -107,8 +107,8 @@ int	main(int argc, char **argv, char **envp)
 		i = 2 + here_doc;
 		while (i < argc - 2)
 			redirect(argv[1], argv[i++], envp);
-		if (access("here_doc", F_OK))
-			unlink("here_doc");
+		ft_printf("Here access: %d\n", access("here_doc", F_OK));
+		unlink("here_doc");
 		fd_file[1] = open(argv[argc - 1], O_RDWR | O_TRUNC * !here_doc
 				| O_APPEND * here_doc | O_CREAT, 0644);
 		check(fd_file[1], argv[argc - 1]);

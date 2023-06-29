@@ -6,7 +6,7 @@
 /*   By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:35:56 by luide-so          #+#    #+#             */
-/*   Updated: 2023/06/24 19:28:25 by luide-so         ###   ########.fr       */
+/*   Updated: 2023/06/29 18:07:17 by luide-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	redirect(char *file, char *cmd, char **envp)
 	}
 	else
 	{
-		check(access(file, F_OK), file);
+		check(access(file, R_OK), file);
 		dup2(fd[1], STDOUT_FILENO);
 		exec_cmd(cmd, envp);
 		close(fd[0]);
