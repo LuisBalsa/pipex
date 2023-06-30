@@ -6,7 +6,7 @@
 /*   By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 18:35:56 by luide-so          #+#    #+#             */
-/*   Updated: 2023/06/29 18:07:17 by luide-so         ###   ########.fr       */
+/*   Updated: 2023/06/30 01:42:29 by luide-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	exec_cmd(char *cmd, char **envp)
 	execve(path, args, envp);
 	dup2(STDERR_FILENO, STDOUT_FILENO);
 	ft_printf("pipex: %s: command not found\n", args[0]);
-	perror(path);
 	ft_free_array(args);
 	free(path);
 	exit(127);
