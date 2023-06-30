@@ -6,7 +6,7 @@
 /*   By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 23:09:53 by luide-so          #+#    #+#             */
-/*   Updated: 2023/06/29 18:08:24 by luide-so         ###   ########.fr       */
+/*   Updated: 2023/06/30 17:42:57 by luide-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_here_doc(char *eof)
 	ft_printf("> ");
 	line = get_next_line(0);
 	while (line && (ft_strncmp(line, eof, ft_strlen(eof))
-		|| ft_strclen(line, '\n') != ft_strlen(eof)))
+			|| ft_strclen(line, '\n') != ft_strlen(eof)))
 	{
 		ft_putstr_fd(line, fd_here_doc);
 		free(line);

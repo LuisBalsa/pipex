@@ -6,7 +6,7 @@
 #    By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/21 14:46:46 by luide-so          #+#    #+#              #
-#    Updated: 2023/06/30 02:20:42 by luide-so         ###   ########.fr        #
+#    Updated: 2023/06/30 17:41:22 by luide-so         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,65 +72,65 @@ tests:
 	@chmod 000 no_permissions.txt
 	@echo "./pipex no_permissions.txt \"grep a\" \"wc -w\" outfile.txt"
 	@echo "\n Shell result:"
-	@< no_permissions.txt grep a | wc -w > outfile.txt
+	@< no_permissions.txt grep a | wc -w > outfile.txt; echo "Error: $$?"
 	@rm -f no_permissions.txt outfile.txt
 	@echo "a a a" > no_permissions.txt
 	@chmod 000 no_permissions.txt
 	@echo "\n Your result:"
-	@./pipex no_permissions.txt "grep a" "wc -w" outfile.txt
+	@./pipex no_permissions.txt "grep a" "wc -w" outfile.txt; echo "Error: $$?"
 	@echo "\n\n$(GREEN)------WITH FILE PERMISSIONS------$(END)\n"
 	@echo "a a a" > permissions.txt
 	@chmod 777 permissions.txt
 	@echo "./pipex permissions.txt \"grep a\" \"wc -w\" outfile.txt"
 	@echo "\n Shell result:"
-	@< permissions.txt grep a | wc -w > outfile.txt
+	@< permissions.txt grep a | wc -w > outfile.txt; echo "Error: $$?"
 	@cat outfile.txt | cat -e
 	@rm -f permissions.txt outfile.txt
 	@echo "a a a" > permissions.txt
 	@chmod 777 permissions.txt
 	@echo "\n Your result:"
-	@./pipex permissions.txt "grep a" "wc -w" outfile.txt
+	@./pipex permissions.txt "grep a" "wc -w" outfile.txt; echo "Error: $$?"
 	@cat outfile.txt | cat -e
 	@rm -f permissions.txt outfile.txt
 	@echo "\n\n$(GREEN)------TEST N1------$(END)\n"
 	@echo "./pipex infile.txt \"cat\" \"wc -l\" outfile.txt"
 	@echo "\n$(YELLOW)WITHOUT INFILE$(END)\n"
 	@echo "Shell result:"
-	@< infile.txt cat | wc -l > outfile.txt
+	@< infile.txt cat | wc -l > outfile.txt; echo "Error: $$?"
 	@cat outfile.txt | cat -e
 	@echo "Your result:"
-	@./pipex infile.txt "cat" "wc -l" outfile.txt
+	@./pipex infile.txt "cat" "wc -l" outfile.txt; echo "Error: $$?"
 	@cat outfile.txt | cat -e
 	@echo "\n$(YELLOW)WITH INFILE$(END)\n"
 	@echo "ola" > infile.txt
 	@echo "Shell result:"
-	@< infile.txt cat | wc -l > outfile.txt
+	@< infile.txt cat | wc -l > outfile.txt; echo "Error: $$?"
 	@cat outfile.txt | cat -e
 	@rm -f outfile.txt
 	@echo "Your result:"
-	@./pipex infile.txt "cat" "wc -l" outfile.txt
+	@./pipex infile.txt "cat" "wc -l" outfile.txt; echo "Error: $$?"
 	@cat outfile.txt | cat -e
 	@rm -f outfile.txt
 	@echo "\n\n$(GREEN)------TEST N2------$(END)\n"
 	@echo "./pipex infile.txt \"grep a1\" \"wc -w\" outfile.txt\n"
 	@echo "Shell result:"
-	@< infile.txt grep a1 | wc -w > outfile.txt
+	@< infile.txt grep a1 | wc -w > outfile.txt; echo "Error: $$?"
 	@cat outfile.txt | cat -e
 	@rm -f outfile.txt
 	@echo "Your result:"
-	@./pipex infile.txt "grep a1" "wc -w" outfile.txt
+	@./pipex infile.txt "grep a1" "wc -w" outfile.txt; echo "Error: $$?"
 	@cat outfile.txt | cat -e
 	@rm -f outfile.txt infile.txt
 	@echo "\n\n$(GREEN)------TEST N3------$(END)\n"
 	@echo "./pipex infile.txt \"grep a1\" \"LOL -w\" outfile.txt\n"
 	@echo "Shell result:"
-	@< infile.txt grep a1 | LOL -w > outfile.txt
+	@< infile.txt grep a1 | LOL -w > outfile.txt; echo "Error: $$?"
 	@cat outfile.txt | cat -e
 	@rm -f outfile.txt
 	@echo "Your result:"
-	@./pipex infile.txt "grep a1" "LOL -w" outfile.txt
+	@./pipex infile.txt "grep a1" "LOL -w" outfile.txt; echo "Error: $$?"
 	@cat outfile.txt | cat -e
-	@rm -f outfile.txt
+	@rm -f outfile.txt no_permissions.txt
 
 .PHONY: all clean fclean re bonus unit_tests
 
