@@ -6,7 +6,7 @@
 /*   By: luide-so <luide-so@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 01:00:31 by luide-so          #+#    #+#             */
-/*   Updated: 2023/06/19 18:35:51 by luide-so         ###   ########.fr       */
+/*   Updated: 2023/07/07 08:36:59 by luide-so         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	print_nbr_right(char *nbr, int *flags)
 	i = 0;
 	j = 0;
 	while (i < flags[7])
-			i += write(1, " ", 1);
+		i += write(1, " ", 1);
 	while (j < flags[6])
 		j += write(1, "0", 1);
 	if (flags[5] < 2)
